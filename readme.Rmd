@@ -17,37 +17,24 @@ print(files)
 # Let's munge some JSON
 ```{r}
 library("rjson")
-raw = fromJSON(file = files[3])
-summary(raw)
-```
+raw = fromJSON(file = files[5])
 
-```{r}
-prices = ()
-for (observation in raw$Data) {
-  prices = rbind.data.frame(prices, observation)
-}
+prices = list()
+for (observation in raw$Data) prices = rbind.data.frame(prices, observation)
+
 summary(unlist(prices$close))
 
 plot(prices$time, prices$close)
 ```
-# Volume
-```{r}
-plot(prices$time, prices$volumeto)
-```
 
-# Correlation
-```{r}
-cor(unlist(prices$open), unlist(prices$close))
-cor(as.numeric(prices$volumeto), as.numeric(prices$close))
-cor(as.numeric(prices$volumefrom), as.numeric(prices$close))
-cor(as.numeric(prices$volumeto), as.numeric(prices$volumefrom))
-```
-
-# OHLC
-```{r}
-matplot(prices[2:5])
-```
 # FFT
 ```{r}
- matplot(fft(abs(unlist(prices$close)))
+f = fft(prices$open - prices$close)
+matplot(f, pch = 1)
 ```
+```{r}
+f = fft(prices$high - prices$low)
+plot(f, pch = 1)
+matplot(sapply(f, abs), pch = 1)
+```
+
