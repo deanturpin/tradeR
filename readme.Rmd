@@ -7,9 +7,9 @@ output:
     highlight: tango
 ---
 
-# Fetch some prices
+# Fetch prices
 ```{r}
-system("make")
+system("make -B")
 files = list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 print(files)
 ```
@@ -17,24 +17,23 @@ print(files)
 # Let's munge some JSON
 ```{r}
 library("rjson")
-raw = fromJSON(file = files[5])
 
-prices = list()
-for (observation in raw$Data) prices = rbind.data.frame(prices, observation)
-
-summary(unlist(prices$close))
-
-plot(prices$time, prices$close)
+for (f in files) {
+  print(f)
+  raw = fromJSON(file = f)
+  
+  prices = list()
+  for (observation in raw$Data) prices = rbind.data.frame(prices, observation)
+  
+  t = unlist(prices$time)
+  c = unlist(prices$close)
+  
+  summary(c)
+  
+  plot(t, c)
+  
+  # FFT
+  f = fft(prices$open - prices$close)
+  matplot(sapply(f, abs), pch = 1)
+}
 ```
-
-# FFT
-```{r}
-f = fft(prices$open - prices$close)
-matplot(f, pch = 1)
-```
-```{r}
-f = fft(prices$high - prices$low)
-plot(f, pch = 1)
-matplot(sapply(f, abs), pch = 1)
-```
-
