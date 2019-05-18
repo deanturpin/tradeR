@@ -21,19 +21,16 @@ library("rjson")
 for (f in files) {
   print(f)
   raw = fromJSON(file = f)
-  
+
   prices = list()
   for (observation in raw$Data) prices = rbind.data.frame(prices, observation)
-  
-  t = unlist(prices$time)
-  c = unlist(prices$close)
-  
-  summary(c)
-  
-  plot(t, c)
-  
-  # FFT
-  f = fft(prices$open - prices$close)
-  matplot(sapply(f, abs), pch = 1)
+
+  time = unlist(prices$time)
+  coin = unlist(prices$close)
+
+  summary(coin)
+
+  plot(time, coin)
 }
 ```
+
