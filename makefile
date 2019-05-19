@@ -15,3 +15,6 @@ url = "https://min-api.cryptocompare.com/data/histominute"
 # Fetch prices for a token
 tmp/%.json:
 	curl --silent "$(url)?fsym=$(basename $(notdir $@))&tsym=USD&limit=1999" > $@
+
+render: tmp prices
+	./rendeR

@@ -9,7 +9,6 @@ output:
 
 # Fetch prices
 ```{r}
-system("make")
 files = list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 print(files)
 ```
