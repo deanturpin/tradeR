@@ -10,6 +10,7 @@ output:
 
 # Fetch prices
 ```{r}
+# Look for files of interest
 files = list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 stopifnot(length(files) > 0)
 print(files)
@@ -19,7 +20,7 @@ library("rjson")
 raw = fromJSON(file = files[1])
 prices = c(); for (observation in raw$Data) prices = c(prices, observation$time)
 
-# Fix time offset
+# Fix time offset (Epoch to friendly units)
 prices = prices - prices[1]
 prices = prices / 3600
 
@@ -27,30 +28,30 @@ prices = prices / 3600
 for (f in files) {
   raw = fromJSON(file = f)
   p = c(); for (observation in raw$Data) p = c(p, observation$close)
-  prices = cbind(prices, p)
+  prices <- cbind(prices, p)
 }
 ```
 
 # Linear regression
 ```{r}
+# X-axis is time
 x <- prices[,1]
+
+# Plot prices on the Y-axis
 for (i in 3:12) {
 
-  # cors <- c(cors, cor(prices[,2], prices[,i]))
   y <- prices[,i]
-
   relation <- lm(y ~ x)
 
-  # summary(prices[,i])
-  plot(x, y, col = "orange", main = files[i - 1], abline(relation), xlab = "hours", ylab = "USD")
+  plot(x, y, col = "orange", main = files[i - 1], 
+       abline(relation), xlab = "hours", ylab = "USD")
 }
 ```
+
 # Correlation
 ```{r}
 for (i in 3:12) {
   cor(prices[,2], prices[,i])
   plot(prices[,2], prices[,i])
 }
-
-# plot(cors)
 ```
