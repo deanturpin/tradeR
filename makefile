@@ -10,7 +10,7 @@ prices: tmp
 tmp:
 	mkdir -p $@
 
-url = "https://min-api.cryptocompare.com/data/histohour"
+url = "https://min-api.cryptocompare.com/data/histominute"
 
 # Fetch prices for a token
 tmp/%.json:

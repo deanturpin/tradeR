@@ -9,7 +9,7 @@ output:
 
 # Fetch prices
 ```{r}
-system("make -B")
+system("make")
 files = list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 print(files)
 ```
@@ -17,6 +17,8 @@ print(files)
 # Let's munge some JSON
 ```{r}
 library("rjson")
+
+# files = files[1]
 
 for (f in files) {
   print(f)
@@ -30,7 +32,6 @@ for (f in files) {
 
   summary(coin)
 
-  plot(time, coin)
+  matplot(time, coin, pch=1, xlab = "seconds", ylab = "USD")
 }
 ```
-
