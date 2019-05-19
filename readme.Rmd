@@ -18,9 +18,8 @@ print(files)
 ```{r}
 library("rjson")
 
-# files = files[1]
-
 for (f in files) {
+
   print(f)
   raw = fromJSON(file = f)
 
@@ -34,4 +33,36 @@ for (f in files) {
 
   matplot(time, coin, pch=1, xlab = "seconds", ylab = "USD")
 }
+
 ```
+
+# Correlation
+```{r}
+# Get the times from the first coin
+raw = fromJSON(file = files[2])
+
+prices = c(); for (observation in raw$Data) prices = c(prices, observation$time)
+# head(prices)
+
+# Add a new column for each coin
+for (f in files) {
+
+  # f = files[2]
+  raw = fromJSON(file = f)
+  # head(raw$Data)
+  p = c(); for (observation in raw$Data) p = c(p, observation$close)
+  # head(p)
+  prices = cbind(prices, p)
+
+}
+
+cors = c()
+for (i in 3:12) {
+  cors = c(cors, cor(prices[,2], prices[,i]))
+}
+
+cors
+plot(cors)
+```
+
+
