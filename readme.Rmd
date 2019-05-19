@@ -24,6 +24,7 @@ prices = c(); for (observation in raw$Data) prices = c(prices, observation$time)
 
 # Fix time offset
 prices = prices - prices[1]
+prices = prices / 3600
 
 # Add a new column for each coin
 for (f in files) {
@@ -43,11 +44,12 @@ plot(cors)
 x <- prices[,1]
 for (i in 3:12) {
 
-  cors = c(cors, cor(prices[,2], prices[,i]))
+  cors <- c(cors, cor(prices[,2], prices[,i]))
   y <- prices[,i]
 
   relation <- lm(y ~ x)
 
-  plot(x, y, col = "orange", main = f, abline(relation))
+  summary(prices[,i])
+  plot(x, y, col = "orange", main = files[i - 1], abline(relation), xlab = "hours", ylab = "USD")
 }
 ```
