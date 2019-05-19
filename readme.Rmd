@@ -13,10 +13,7 @@ output:
 files = list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 stopifnot(length(files) > 0)
 print(files)
-```
 
-# Correlation
-```{r}
 # Get the times from the first coin
 library("rjson")
 raw = fromJSON(file = files[1])
@@ -32,11 +29,6 @@ for (f in files) {
   p = c(); for (observation in raw$Data) p = c(p, observation$close)
   prices = cbind(prices, p)
 }
-
-cors = c()
-for (i in 3:12) cors = c(cors, cor(prices[,2], prices[,i]))
-
-plot(cors)
 ```
 
 # Linear regression
@@ -44,12 +36,21 @@ plot(cors)
 x <- prices[,1]
 for (i in 3:12) {
 
-  cors <- c(cors, cor(prices[,2], prices[,i]))
+  # cors <- c(cors, cor(prices[,2], prices[,i]))
   y <- prices[,i]
 
   relation <- lm(y ~ x)
 
-  summary(prices[,i])
+  # summary(prices[,i])
   plot(x, y, col = "orange", main = files[i - 1], abline(relation), xlab = "hours", ylab = "USD")
 }
+```
+# Correlation
+```{r}
+for (i in 3:12) {
+  cor(prices[,2], prices[,i])
+  plot(prices[,2], prices[,i])
+}
+
+# plot(cors)
 ```
