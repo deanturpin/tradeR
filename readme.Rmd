@@ -18,21 +18,22 @@ print(files)
 # Get the times from the first coin
 library("rjson")
 raw = fromJSON(file = files[1])
-prices = c(); for (observation in raw$Data) prices = c(prices, observation$time)
+timestamp = c(); for (observation in raw$Data) timestamp = c(timestamp, observation$time)
 
 # Fix time offset (Epoch to friendly units)
-prices = prices - prices[1]
-prices = prices / 3600
+timestamp = timestamp - timestamp[1]
+timestamp = timestamp / 3600
+
+prices <- cbind(timestamp)
+
+head(prices)
 
 # Add a new column for each coin
 for (f in files) {
   raw = fromJSON(file = f)
   p = c(); for (observation in raw$Data) p = c(p, observation$close)
-  prices <- cbind(prices, p)
+  prices <- cbind(prices, usd = p)
 }
-
-# prices[1,]
-# as.table(raw$Data[])
 ```
 
 # Linear regression
@@ -58,3 +59,4 @@ for (i in 3:12) {
   plot(prices[,2], prices[,i])
 }
 ```
+
