@@ -54,6 +54,22 @@ for (i in 3:12) {
 }
 ```
 
+# Normalise
+```{r}
+# Take a copy to normalise
+n = prices
+
+for (i in 2:12) {
+  low = min(n[,i])
+  high = max(n[,i])
+
+  n[,i] = n[,i] - low
+  n[,i] = n[,i] / (high - low)
+}
+
+matplot(n[,2:12], pch = 1)
+```
+
 # Correlation
 ```{r}
 for (i in 3:12) {
@@ -62,15 +78,3 @@ for (i in 3:12) {
 }
 ```
 
-# Normalise
-```{r}
-head(prices)
-n = prices
-
-for (i in 2:12) {
-  n[,i] = n[,i] - max(n[,i])
-}
-head(n)
-
-matplot(n, pch = 1)
-```
