@@ -30,6 +30,9 @@ for (f in files) {
   p = c(); for (observation in raw$Data) p = c(p, observation$close)
   prices <- cbind(prices, p)
 }
+
+# prices[1,]
+# as.table(raw$Data[])
 ```
 
 # Linear regression
