@@ -8,6 +8,10 @@ output:
     highlight: tango
 ---
 
+```{r}
+library("rjson")
+```
+
 # Fetch prices
 ```{r}
 # Look for files of interest
@@ -16,7 +20,6 @@ stopifnot(length(files) > 0)
 print(files)
 
 # Get the times from the first coin
-library("rjson")
 raw = fromJSON(file = files[1])
 timestamp = c(); for (observation in raw$Data) timestamp = c(timestamp, observation$time)
 
@@ -25,8 +28,6 @@ timestamp = timestamp - timestamp[1]
 timestamp = timestamp / 3600
 
 prices <- cbind(timestamp)
-
-head(prices)
 
 # Add a new column for each coin
 for (f in files) {
@@ -59,4 +60,3 @@ for (i in 3:12) {
   plot(prices[,2], prices[,i])
 }
 ```
-
