@@ -48,8 +48,9 @@ for (i in 3:12) {
   y <- prices[,i]
   relation <- lm(y ~ x)
 
+  par(bg = "gray94")
   plot(x, y, col = "orange", main = files[i - 1], 
-       abline(relation), xlab = "hours", ylab = "USD")
+       abline(relation, col="red", lty = 10), xlab = "hours", ylab = "USD")
 }
 ```
 
@@ -60,3 +61,4 @@ for (i in 3:12) {
   plot(prices[,2], prices[,i])
 }
 ```
+
