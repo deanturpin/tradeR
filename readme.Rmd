@@ -62,3 +62,15 @@ for (i in 3:12) {
 }
 ```
 
+# Normalise
+```{r}
+head(prices)
+n = prices
+
+for (i in 2:12) {
+  n[,i] = n[,i] - max(n[,i])
+}
+head(n)
+
+matplot(n, pch = 1)
+```
