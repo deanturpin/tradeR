@@ -1,6 +1,6 @@
 ---
 title: tradeR
-date: "Last update: `r Sys.time()`"
+date: "Last update: `r Sys.time()` by `r system('hostname')` in `r Sys.timezone()`"
 output:
   html_document:
     code_folding: "hide"
