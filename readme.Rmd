@@ -15,42 +15,42 @@ library("rjson")
 # Fetch prices
 ```{r}
 # Look for files of interest
-files = list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
+files <- list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 stopifnot(length(files) > 0)
-print(files)
 
-# Get the times from the first coin
-raw = fromJSON(file = files[1])
-timestamp = c(); for (observation in raw$Data) timestamp = c(timestamp, observation$time)
+ignore <- mapply(print, files)
+```
 
-# Fix time offset (Epoch to friendly units)
-timestamp = timestamp - timestamp[1]
-timestamp = timestamp / 3600
-
-prices <- cbind(timestamp)
-
-# Add a new column for each coin
-for (f in files) {
+```{r}
+prices <- c()
+extract <- function(f){
   raw = fromJSON(file = f)
-  p = c(); for (observation in raw$Data) p = c(p, observation$close)
-  prices <- cbind(prices, usd = p)
+  p <- c(); for (observation in raw$Data) p <- c(p, observation$close)
+  p
 }
+
+prices <- as.data.frame(mapply(extract, files))
+summary(prices)
+```
+
+# Tableplot
+```{r}
+require("tabplot")
+tableplot(prices)
 ```
 
 # Linear regression
 ```{r}
-# X-axis is time
-x <- prices[,1]
+for (y in prices) {
 
-# Plot prices on the Y-axis
-for (i in 3:12) {
-
-  y <- prices[,i]
+  x <- 1:length(y)
   relation <- lm(y ~ x)
 
-  par(bg = "gray94")
-  plot(x, y, col = "orange", main = files[i - 1], 
-       abline(relation, col="red", lty = 10), xlab = "hours", ylab = "USD")
+  # plot(n)
+  # par(bg = "gray94")
+  # plot.new()
+  plot(y, col = "orange") # abline(relation)) 
+  # , col="red", lty = 10), xlab = "hours", ylab = "USD")
 }
 ```
 
@@ -59,22 +59,22 @@ for (i in 3:12) {
 # Take a copy to normalise
 n = prices
 
-for (i in 2:12) {
-  low = min(n[,i])
-  high = max(n[,i])
+# for (i in 1:11) {
+#   low = min(n[,i])
+#   high = max(n[,i])
 
-  n[,i] = n[,i] - low
-  n[,i] = n[,i] / (high - low)
-}
+#   n[,i] = n[,i] - low
+#   n[,i] = n[,i] / (high - low)
+# }
 
-matplot(n[,2:12], pch = 1)
+# matplot(n[,2:12], pch = 1)
 ```
 
 # Correlation
 ```{r}
-for (i in 3:12) {
-  cor(prices[,2], prices[,i])
-  plot(prices[,2], prices[,i])
-}
+# for (i in 3:12) {
+#  cor(prices[,2], prices[,i])
+#  plot(prices[,2], prices[,i])
+# }
 ```
 
