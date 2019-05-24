@@ -17,13 +17,11 @@ library("rjson")
 # Look for files of interest
 files <- list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 stopifnot(length(files) > 0)
-
-ignore <- mapply(print, files)
 ```
 
 ```{r}
-prices <- c()
 extract <- function(f){
+  paste("reading", f)
   raw = fromJSON(file = f)
   p <- c(); for (observation in raw$Data) p <- c(p, observation$close)
   p
@@ -41,7 +39,7 @@ for (y in prices) {
   relation <- lm(y ~ x)
 
   # relation
-  plot(x, y, col = "salmon", main = "hi", 
+  plot(x, y, col = "green", main = "hi", 
     abline(relation, col="darkgreen"), xlab = "minutes", ylab = "USD")
 }
 ```
