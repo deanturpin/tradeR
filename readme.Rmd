@@ -33,12 +33,6 @@ prices <- as.data.frame(mapply(extract, files))
 summary(prices)
 ```
 
-# Tableplot
-```{r}
-require("tabplot")
-tableplot(prices)
-```
-
 # Linear regression
 ```{r}
 for (y in prices) {
@@ -46,11 +40,9 @@ for (y in prices) {
   x <- 1:length(y)
   relation <- lm(y ~ x)
 
-  # plot(n)
-  # par(bg = "gray94")
-  # plot.new()
-  plot(y, col = "orange") # abline(relation)) 
-  # , col="red", lty = 10), xlab = "hours", ylab = "USD")
+  # relation
+  plot(x, y, col = "salmon", main = "hi", 
+    abline(relation, col="darkgreen"), xlab = "minutes", ylab = "USD")
 }
 ```
 
