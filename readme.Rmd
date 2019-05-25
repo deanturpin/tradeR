@@ -42,16 +42,14 @@ sapply(prices, linear_regression)
 
 # Normalise
 ```{r}
-# Take a copy to normalise
-n = prices
-
-for (y in n) {
-  low = min(y)
-  high = max(y)
-
-  y = y - low
-  y = y / (high - low)
+normalise <- function(y) {
+  low <- min(y)
+  high <- max(y)
+  y <- y - low
+  y <- y / (high - low)
 }
 
-matplot(n, pch = 1)
+normalised <- sapply(prices, normalise)
+
+matplot(normalised, pch = 1)
 ```
