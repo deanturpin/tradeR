@@ -21,26 +21,24 @@ stopifnot(length(files) > 0)
 
 ```{r}
 extract <- function(f){
-  paste("reading", f)
   raw = fromJSON(file = f)
-  p <- c(); for (observation in raw$Data) p <- c(p, observation$close)
-  p
+  p <-sapply (raw$Data[1:5], function(x) x$open)
+  as.data.frame(p)
 }
 
-prices <- as.data.frame(mapply(extract, files))
-summary(prices)
+prices <-sapply(files, extract)
 ```
 
 # Linear regression
 ```{r}
 for (y in prices) {
 
+  # Do linear regression
   x <- 1:length(y)
   relation <- lm(y ~ x)
 
-  # relation
-  plot(x, y, col = "green", main = "hi", 
-    abline(relation, col="darkgreen"), xlab = "minutes", ylab = "USD")
+  plot(x, y, col = "darkgreen", main = "hi", 
+    abline(relation, col="red"), xlab = "minutes", ylab = "USD")
 }
 ```
 
@@ -49,22 +47,13 @@ for (y in prices) {
 # Take a copy to normalise
 n = prices
 
-# for (i in 1:11) {
-#   low = min(n[,i])
-#   high = max(n[,i])
+for (y in n) {
+  low = min(y)
+  high = max(y)
 
-#   n[,i] = n[,i] - low
-#   n[,i] = n[,i] / (high - low)
-# }
+  y = y - low
+  y = y / (high - low)
+}
 
-# matplot(n[,2:12], pch = 1)
+matplot(n, pch = 1)
 ```
-
-# Correlation
-```{r}
-# for (i in 3:12) {
-#  cor(prices[,2], prices[,i])
-#  plot(prices[,2], prices[,i])
-# }
-```
-
