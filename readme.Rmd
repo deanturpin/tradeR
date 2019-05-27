@@ -9,7 +9,7 @@ output:
 ---
 
 # Linear regression
-```{r}
+```{r message=FALSE}
 library("rjson")
 
 # Read any files on disk
@@ -18,7 +18,7 @@ stopifnot(length(files) > 0)
 
 # Extract the interesting bits
 extract <- function(f){
-  json = fromJSON(file = f)
+  json <- fromJSON(file = f)
   sapply(json$Data, function(x) x$open)
 }
 
