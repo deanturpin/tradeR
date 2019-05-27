@@ -5,7 +5,7 @@ tokens = tmp/ETH.json tmp/BCH.json tmp/XRP.json tmp/LTC.json tmp/ETC.json \
 	tmp/XLM.json
 
 prices: tmp
-	$(MAKE) -j $(shell nproc) $(tokens)
+	$(MAKE) -B -j $(shell nproc) $(tokens)
 
 tmp:
 	mkdir -p $@
