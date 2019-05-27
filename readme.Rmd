@@ -8,27 +8,23 @@ output:
     highlight: zenburn
 ---
 
+# Linear regression
 ```{r}
 library("rjson")
-```
 
-# Fetch prices
-```{r}
+# Read any files on disk
 files <- list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 stopifnot(length(files) > 0)
-```
 
-```{r}
+# Extract the interesting bits
 extract <- function(f){
   json = fromJSON(file = f)
   sapply(json$Data, function(x) x$open)
 }
 
 prices <-as.data.frame(sapply(files, extract))
-```
 
-# Linear regression
-```{r}
+# Plot prices and linear regression
 linear_regression <- function(y) {
   x <- 1:length(y) / 60
   relation <- lm(y ~ x)
