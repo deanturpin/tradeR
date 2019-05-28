@@ -1,3 +1,3 @@
 * Uses the [CryptoCompare API](https://min-api.cryptocompare.com/)
 * Prices fetched in parallel using ```make```
-* Analysis in R
+* Analysis in R/Rmarkdown
