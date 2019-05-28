@@ -1,6 +1,7 @@
 language: R
 install:
   - R -e "install.packages('rjson')"
+  - R -e "install.packages('rmarkdown')"
 
 script: make
 
