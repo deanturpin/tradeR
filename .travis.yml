@@ -3,7 +3,7 @@ install:
   - R -e "install.packages('rjson')"
   - R -e "install.packages('rmarkdown')"
 
-script: make
+script: make && mv .gitignore tmp/
 
 deploy:
   provider: pages
