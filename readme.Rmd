@@ -8,6 +8,8 @@ output:
     highlight: zenburn
 ---
 
+See [project info](readme.md).
+
 # Linear regression
 ```{r}
 library("rjson")
