@@ -28,7 +28,7 @@ prices <-as.data.frame(sapply(files, extract))
 linear_regression <- function(name) {
 
   # Get prices for token  
-  y <- unlist(prices[which(colnames(prices) == name)])
+  y <- unlist(prices[name])
   x <- 1:length(y) / 60
   
   # Fit line
@@ -39,7 +39,7 @@ linear_regression <- function(name) {
        abline(relation), xlab = "hours", ylab = "USD")
 }
 
-plots <- sapply(colnames(prices), linear_regression)
+plots <- lapply(colnames(prices), linear_regression)
 
 ```
 
