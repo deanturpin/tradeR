@@ -7,6 +7,7 @@ output:
     theme: sandstone
     highlight: zenburn
 ---
+[![Build Status](https://travis-ci.org/deanturpin/tradeR.svg?branch=master)](https://travis-ci.org/deanturpin/tradeR)
 
 # Linear regression
 See source on [GitHub](https://github.com/deanturpin/tradeR).
