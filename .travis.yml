@@ -1,6 +1,6 @@
 language: R
 install:
-  - R -e "install.packages('rjson')"A
+  - R -e "install.packages('rjson')"
 
 script: make
 
