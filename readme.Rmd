@@ -9,7 +9,7 @@ output:
 ---
 
 # Linear regression
-```{r message=FALSE}
+```{r}
 library("rjson")
 
 # Read any files on disk
@@ -25,13 +25,22 @@ extract <- function(f){
 prices <-as.data.frame(sapply(files, extract))
 
 # Plot prices and linear regression
-linear_regression <- function(y) {
+linear_regression <- function(name) {
+
+  # Get prices for token  
+  y <- unlist(prices[which(colnames(prices) == name)])
   x <- 1:length(y) / 60
+  
+  # Fit line
   relation <- lm(y ~ x)
-    plot(x, y, col = "darkred", abline(relation), xlab = "hours", ylab = "USD")
+  
+  # Plot with calculated line
+  plot(x, y, col = "darkred", main = name,
+       abline(relation), xlab = "hours", ylab = "USD")
 }
 
-sapply(prices, linear_regression)
+plots <- sapply(colnames(prices), linear_regression)
+
 ```
 
 # Normalise
