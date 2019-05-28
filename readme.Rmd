@@ -12,6 +12,8 @@ output:
 ```{r}
 library("rjson")
 
+See source on [GitHub](https://github.com/deanturpin/tradeR).
+
 # Read any files on disk
 files <- list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
 stopifnot(length(files) > 0)
