@@ -40,8 +40,8 @@ linear_regression <- function(name) {
   
   # Create plot titles
   main_title <- name
-  sub_title <- paste("std dev", sd(y))
-  
+  sub_title <- paste("sd/var/cov", sd(y), var(y), cov(x, y))
+
   # Plot with calculated line
   plot(x, y, col = "darkred", main = main_title, sub = sub_title,
        abline(relation), xlab = "hours", ylab = "USD")
