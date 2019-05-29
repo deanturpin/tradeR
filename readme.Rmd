@@ -54,6 +54,9 @@ linear_regression <- function(name) {
   plot(x, y, col = "navy", main = main_title, sub = sub_title,
        abline(relation), xlab = "", ylab = "USD") # , type="l", col="navy")
 
+  p_mean <- mean(y)
+  abline(c(0, p_mean), c(length(x), p_mean))
+
   grid()
 
   peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
