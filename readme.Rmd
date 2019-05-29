@@ -40,11 +40,11 @@ linear_regression <- function(name) {
   
   # Create plot titles
   main_title <- name
-  sub_title <- paste("sd/var/cov", sd(y), var(y), cov(x, y))
+  sub_title <- paste("sd/var/cov/cor\n", sd(y), var(y), cov(x, y), cor(x, y))
 
   # Plot with calculated line
   plot(x, y, col = "darkred", main = main_title, sub = sub_title,
-       abline(relation), xlab = "hours", ylab = "USD")
+       abline(relation), xlab = "", ylab = "USD")
 }
 
 plots <- lapply(colnames(prices), linear_regression)
