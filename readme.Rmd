@@ -70,7 +70,7 @@ linear_regression <- function(name) {
 
   # Histogram of diffs
   h <- diff(y)
-  hist(h, breaks=500, main = past("hist", main_title), sub = paste("std dev", sd(h)))
+  hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
 }
 
 plots <- lapply(colnames(prices), linear_regression)
