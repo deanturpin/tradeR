@@ -21,7 +21,9 @@ stopifnot(length(files) > 0)
 # Extract the interesting bits
 extract <- function(f){
   json <- fromJSON(file = f)
-  sapply(json$Data, function(x) x$open)
+  sapply(json$Data, function(x) {
+    mean(c(x$open, x$high, x$low))
+  })
 }
 
 # Extract all series
@@ -54,10 +56,9 @@ linear_regression <- function(name) {
                      "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
-  plot(x, y, col = "navy", main = main_title, sub = sub_title, 
-       abline(relation),
-       xlab = "", ylab = "USD")
+  plot(y, type = "l", col = "navy", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
 
+  abline(relation)
   grid(10, 10)
 
   # Plot peaks
@@ -70,7 +71,7 @@ linear_regression <- function(name) {
 
   # Histogram of diffs
   h <- diff(y)
-  hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
+  hist(h, breaks=200, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
 }
 
 plots <- lapply(colnames(prices), linear_regression)
