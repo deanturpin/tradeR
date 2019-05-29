@@ -27,6 +27,9 @@ extract <- function(f){
 # Extract all series
 prices <-as.data.frame(sapply(files, extract))
 
+# Only process a subset
+prices <- prices[c("tmp/BTC.json", "tmp/ETH.json", "tmp/XRP.json")]
+
 # Add a random series
 random_prices <- cumsum(rnorm(nrow(prices)))
 prices <- cbind(prices, random_prices)
