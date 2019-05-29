@@ -24,12 +24,16 @@ extract <- function(f){
   sapply(json$Data, function(x) x$open)
 }
 
+# Extract all series
 prices <-as.data.frame(sapply(files, extract))
+
+# Add a random series
+random_prices <- cumsum(runif(nrow(prices), min = -1, max = 2))
+prices <- cbind(prices, random_prices = random_prices)
 ```
 
 ```{r}
-  library("pracma")
-  # install.packages("pracma")
+library("pracma")
 
 # Plot prices and linear regression
 linear_regression <- function(name) {
@@ -65,7 +69,6 @@ linear_regression <- function(name) {
 }
 
 plots <- lapply(colnames(prices), linear_regression)
-
 ```
 
 # Normalise
