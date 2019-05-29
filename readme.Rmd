@@ -35,19 +35,25 @@ linear_regression <- function(name) {
   y <- unlist(prices[name])
   x <- 1:length(y) / 60
 
-    # Fit line
+  # Fit line
   relation <- lm(y ~ x)
-  
+
   # Create plot titles
   main_title <- name
-  sub_title <- paste("sd/var/cov/cor\n", sd(y), var(y), cov(x, y), cor(x, y))
+  sub_title <- paste("sd/var/cov/cor min/mean/max\n", sd(y), var(y), cov(x, y), cor(x, y),
+                     "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
   plot(x, y, col = "darkred", main = main_title, sub = sub_title,
        abline(relation), xlab = "", ylab = "USD")
 
-  plot(density(y))
-  hist(diff(y), breaks=2000)
+  # Density
+  d <-density(y)
+  plot(d, main = paste("density", name))
+
+  # Histogram of diffs
+  h <- diff(y)
+  hist(h, breaks=2000, main = name, sub = paste("std dev", sd(h)))
 }
 
 plots <- lapply(colnames(prices), linear_regression)
