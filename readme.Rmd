@@ -21,13 +21,17 @@ stopifnot(length(files) > 0)
 # Extract the interesting bits
 extract <- function(f){
   json <- fromJSON(file = f)
+  # with (json$Data, mean(open, high, low))
+
   sapply(json$Data, function(x) {
-    mean(c(x$open, x$high, x$low))
+  mean(c(x$open, x$high, x$low))
   })
 }
 
 # Extract all series
 prices <-as.data.frame(sapply(files, extract))
+
+# with(prices, plot())
 
 # Only process a subset
 prices <- prices[c("tmp/BTC.json", "tmp/ETH.json", "tmp/XRP.json")]
@@ -35,12 +39,19 @@ prices <- prices[c("tmp/BTC.json", "tmp/ETH.json", "tmp/XRP.json")]
 # Add a random series
 random_prices <- cumsum(rnorm(nrow(prices)))
 prices <- cbind(prices, random_prices)
+# with(mtcars, boxplot(disp, mpg))
+
+
+```
+# Correlation
+```{r}
+pairs(prices)
 ```
 
 ```{r}
 library("pracma")
 
-# Plot prices and linear regression
+# Plot prices and ilnear regression
 linear_regression <- function(name) {
 
   # Get prices for token  
@@ -56,7 +67,7 @@ linear_regression <- function(name) {
                      "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
-  matplot(c(y, sort(y)), type = "l", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
+  plot(c(y, sort(y)), type = "l", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
   
   # Add linear regression
   abline(relation)
