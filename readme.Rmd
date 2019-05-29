@@ -38,11 +38,12 @@ linear_regression <- function(name) {
   # Fit line
   relation <- lm(y ~ x)
   
-  # Create plot title
-  plot_title <- paste(name, "std dev", sd(y))
+  # Create plot titles
+  main_title <- name
+  sub_title <- paste("std dev", sd(y))
   
   # Plot with calculated line
-  plot(x, y, col = "darkred", main = plot_title,
+  plot(x, y, col = "darkred", main = main_title, sub = sub_title,
        abline(relation), xlab = "hours", ylab = "USD")
 }
 
