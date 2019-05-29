@@ -56,8 +56,8 @@ linear_regression <- function(name) {
                      "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
-  plot(y, type = "l", col = "navy", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
-
+  matplot(c(y, sort(y)), type = "l", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
+  
   # Add linear regression
   abline(relation)
   grid(10, 10)
