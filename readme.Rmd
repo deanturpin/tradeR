@@ -28,7 +28,7 @@ extract <- function(f){
 prices <-as.data.frame(sapply(files, extract))
 
 # Add a random series
-random_prices <- cumsum(runif(nrow(prices), min = -1, max = 2))
+random_prices <- cumsum(runif(nrow(prices), min = -1, max = 1.01))
 prices <- cbind(prices, random_prices = random_prices)
 ```
 
