@@ -9,7 +9,6 @@ output:
 ---
 [![Build Status](https://travis-ci.org/deanturpin/tradeR.svg?branch=master)](https://travis-ci.org/deanturpin/tradeR)
 
-# Price analysis
 ```{r}
 # Read JSON files and extract the prices
 library("rjson")
@@ -40,14 +39,14 @@ prices <- prices[c("tmp/BTC.json", "tmp/ETH.json", "tmp/XRP.json")]
 random_prices <- cumsum(rnorm(nrow(prices)))
 prices <- cbind(prices, random_prices)
 # with(mtcars, boxplot(disp, mpg))
-
-
 ```
+
 # Correlation
 ```{r}
 pairs(prices)
 ```
 
+# Price analysis
 ```{r}
 library("pracma")
 
