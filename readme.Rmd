@@ -28,6 +28,9 @@ prices <-as.data.frame(sapply(files, extract))
 ```
 
 ```{r}
+  library("pracma")
+  # install.packages("pracma")
+
 # Plot prices and linear regression
 linear_regression <- function(name) {
 
@@ -40,20 +43,25 @@ linear_regression <- function(name) {
 
   # Create plot titles
   main_title <- name
-  sub_title <- paste("sd/var/cov/cor min/mean/max\n", sd(y), var(y), cov(x, y), cor(x, y),
+  sub_title <- paste0("sd/var/cov/cor min/mean/max\n", sd(y), var(y), cov(x, y), cor(x, y),
                      "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
-  plot(x, y, col = "darkred", main = main_title, sub = sub_title,
-       abline(relation), xlab = "", ylab = "USD")
+  plot(x, y, col = "navy", main = main_title, sub = sub_title,
+       abline(relation), xlab = "", ylab = "USD") # , type="l", col="navy")
+
+  grid()
+
+  peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
+  points(peaks[, 2], peaks[, 1], pch=20, col="maroon")
 
   # Density
   d <-density(y)
-  plot(d, main = paste("density", name))
+  plot(d, main = paste0("density", name))
 
   # Histogram of diffs
   h <- diff(y)
-  hist(h, breaks=2000, main = name, sub = paste("std dev", sd(h)))
+  hist(h, breaks=2000, main = name, sub = paste0("std dev", sd(h)))
 }
 
 plots <- lapply(colnames(prices), linear_regression)

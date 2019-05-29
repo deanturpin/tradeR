@@ -2,6 +2,7 @@ language: R
 install:
   - R -e "install.packages('rjson')"
   - R -e "install.packages('rmarkdown')"
+  - R -e "install.packages('pracma')"
 
 script: make && mv .gitignore tmp/
 
