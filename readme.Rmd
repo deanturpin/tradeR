@@ -63,7 +63,7 @@ linear_regression <- function(name) {
 
   # Plot peaks
   peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
-  points(peaks[,2], peaks[,1], pch=20, col="maroon")
+  points(peaks[,2], peaks[,1], pch=4, col="red")
 
   # Density
   d <-density(y)
@@ -74,7 +74,7 @@ linear_regression <- function(name) {
   hist(h, breaks=200, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
 }
 
-plots <- lapply(colnames(prices), linear_regression)
+plots <- sapply(colnames(prices), linear_regression)
 ```
 
 # Normalise
