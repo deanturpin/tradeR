@@ -49,16 +49,16 @@ linear_regression <- function(name) {
   relation <- lm(y ~ x)
 
   # Create plot titles
-  main_title <- name
-  sub_title <- paste0("sd/var/cov/cor min/mean/max\n", sd(y), var(y), cov(x, y), cor(x, y),
+  main_title <- sub("tmp/", "", sub(".json", "", name))
+  sub_title <- paste("sd/var/cov/cor min/mean/max\n", sd(y), var(y), cov(x, y), cor(x, y),
                      "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
-  plot(x, y, col = "navy", main = main_title, sub = sub_title,
+  plot(x, y, col = "navy", main = main_title, sub = sub_title, 
        abline(relation),
-       xlab = "", ylab = "USD") # , type="l", col="navy")
+       xlab = "", ylab = "USD")
 
-  grid()
+  grid(10, 10)
 
   # Plot peaks
   peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
@@ -66,11 +66,11 @@ linear_regression <- function(name) {
 
   # Density
   d <-density(y)
-  plot(d, main = paste0("density", name))
+  plot(d, main = paste("density", main_title))
 
   # Histogram of diffs
   h <- diff(y)
-  hist(h, breaks=2000, main = name, sub = paste0("std dev", sd(h)))
+  hist(h, breaks=500, main = past("hist", main_title), sub = paste("std dev", sd(h)))
 }
 
 plots <- lapply(colnames(prices), linear_regression)
