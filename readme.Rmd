@@ -43,10 +43,6 @@ prices <- cbind(random_prices, prices)
 # with(mtcars, boxplot(disp, mpg))
 ```
 
-# Correlation
-```{r, correlation}
-pairs(prices)
-```
 
 # Price analysis
 ```{r, analysis}
@@ -89,8 +85,10 @@ linear_regression <- function(name) {
 plots <- sapply(colnames(prices), linear_regression)
 ```
 
-# Normalise
-```{r, normalise}
+# Correlation
+```{r, correlation}
+pairs(prices)
+
 normalise <- function(y) {
   low <- min(y)
   high <- max(y)
