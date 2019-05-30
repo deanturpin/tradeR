@@ -52,49 +52,37 @@ linear_regression <- function(name) {
   # Report if latest value significantly exceeds mean
   standard_deviation <- sd(y)
 
+  # Create plot title
+  main_title <- sub("tmp/", "", sub(".json", "", name))
+
   if (tail(y, 1) > mean(y) + (1 * standard_deviation)) {
-
-    # Create plot title
-    main_title <- sub("tmp/", "", sub(".json", "", name))
-    sub_title <- paste("sd", standard_deviation)
-
-    # Fit line
-    relation <- lm(y ~ x)
-
-    # Plot with calculated line
-    plot(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes",
-      ylab = "USD")
-
-    # Add linear regression
-    abline(relation, col = "orange")
-    grid(10, 10)
-
-    # Plot peaks
-    peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
-    points(peaks[,2], peaks[,1], pch=4, col="red")
-
-    # Histogram of diffs
-    h <- diff(y)
-    hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std
-      dev", standard_deviation))
+    main_title <- paste(main_title, "ALERT!")
   }
+
+  sub_title <- paste("sd", standard_deviation)
+
+  # Fit line
+  relation <- lm(y ~ x)
+
+  # Plot with calculated line
+  plot(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes",
+    ylab = "USD")
+
+  # Add linear regression
+  abline(relation, col = "orange")
+  grid(10, 10)
+
+  # Plot peaks
+  peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
+  points(peaks[,2], peaks[,1], pch=4, col="red")
+
+  # Histogram of diffs
+  h <- diff(y)
+  hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std
+    dev", standard_deviation))
 }
 
 plots <- sapply(colnames(prices), linear_regression)
-```
-
-# Normalised
-```{r, correlation}
-normalise <- function(y) {
- low <- min(y)
- high <- max(y)
- y <- y - low
- y <- y / (high - low)
-}
-
-normalised <- sapply(prices, normalise)
-
-matplot(normalised, pch = 1)
 ```
 
 ```{bash, revision info}
