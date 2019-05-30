@@ -7,6 +7,10 @@ output:
     theme: sandstone
     highlight: zenburn
 ---
+```{bash, revision info}
+git log --oneline -n 1
+```
+
 ```{r, read and extract}
 # Read JSON files and extract the prices
 library("rjson")
