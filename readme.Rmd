@@ -63,10 +63,10 @@ linear_regression <- function(name) {
   sub_title <- paste("sd", sd(y))
 
   # Plot with calculated line
-  plot(y, type = "h", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
+  plot(y, type = "h", main = main_title, sub = sub_title, xlab = "minutes", ylab = "USD")
   
   # Add linear regression
-  abline(relation)
+  abline(relation, col = "orange")
   grid(10, 10)
 
   # Plot peaks
