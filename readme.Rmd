@@ -7,8 +7,6 @@ output:
     theme: sandstone
     highlight: zenburn
 ---
-[![Build Status](https://travis-ci.org/deanturpin/tradeR.svg?branch=master)](https://travis-ci.org/deanturpin/tradeR)
-
 ```{r}
 # Read JSON files and extract the prices
 library("rjson")
@@ -66,7 +64,7 @@ linear_regression <- function(name) {
                      "\n", min(y), mean(y), max(y))
 
   # Plot with calculated line
-  plot(c(y, sort(y)), type = "l", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
+  plot(y, type = "h", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
   
   # Add linear regression
   abline(relation)
@@ -82,7 +80,7 @@ linear_regression <- function(name) {
 
   # Histogram of diffs
   h <- diff(y)
-  hist(h, breaks=200, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
+  hist(h, breaks=2000, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
 }
 
 plots <- sapply(colnames(prices), linear_regression)
