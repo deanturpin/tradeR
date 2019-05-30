@@ -67,7 +67,7 @@ linear_regression <- function(name) {
   sub_title <- paste("sd", sd(y))
 
   # Plot with calculated line
-  plot(y, type = "h", main = main_title, sub = sub_title, xlab = "minutes", ylab = "USD")
+  plot(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes", ylab = "USD")
   
   # Add linear regression
   abline(relation, col = "orange")
