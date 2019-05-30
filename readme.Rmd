@@ -35,7 +35,9 @@ prices <- cbind(random_prices, prices)
 # with(mtcars, boxplot(disp, mpg))
 ```
 
-# Price analysis
+# Price alert!
+If latest price is one standard deviation greater than the mean.
+
 ```{r, analysis}
 library("pracma")
 
