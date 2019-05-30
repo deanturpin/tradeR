@@ -3,7 +3,9 @@ all: prices render
 tokens = tmp/ETH.json tmp/BCH.json tmp/XRP.json tmp/LTC.json tmp/ETC.json \
 	tmp/EOS.json tmp/REP.json tmp/ZRX.json tmp/BTC.json tmp/BCHABC.json \
 	tmp/XLM.json tmp/ADA.json tmp/WAVES.json tmp/EOS.json tmp/XRP.json \
-	tmp/ETC.json tmp/USDC.json tmp/BNB.json tmp/ATOM.json tmp/BAT.json
+	tmp/ETC.json tmp/USDC.json tmp/BNB.json tmp/ATOM.json tmp/BAT.json \
+	tmp/ZEC.json tmp/NEO.json tmp/PAX.json tmp/TRX.json tmp/BSV.json \
+	tmp/BTT.json tmp/XLM.json
 
 prices: tmp
 	$(MAKE) -j $(shell nproc) $(tokens)
