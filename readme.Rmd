@@ -7,7 +7,7 @@ output:
     theme: sandstone
     highlight: zenburn
 ---
-```{r}
+```{r, read and extract}
 # Read JSON files and extract the prices
 library("rjson")
 
@@ -40,12 +40,12 @@ prices <- cbind(prices, random_prices)
 ```
 
 # Correlation
-```{r}
+```{r, correlation}
 pairs(prices)
 ```
 
 # Price analysis
-```{r}
+```{r, analysis}
 library("pracma")
 
 # Plot prices and ilnear regression
@@ -86,7 +86,7 @@ plots <- sapply(colnames(prices), linear_regression)
 ```
 
 # Normalise
-```{r}
+```{r, normalise}
 normalise <- function(y) {
   low <- min(y)
   high <- max(y)
