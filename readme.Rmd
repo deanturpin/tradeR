@@ -35,7 +35,7 @@ prices <- prices[c("tmp/BTC.json", "tmp/ETH.json", "tmp/XRP.json")]
 
 # Add a random series
 random_prices <- cumsum(rnorm(nrow(prices)))
-prices <- cbind(prices, random_prices)
+prices <- cbind(random_prices, prices)
 # with(mtcars, boxplot(disp, mpg))
 ```
 
