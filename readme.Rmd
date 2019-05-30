@@ -24,28 +24,20 @@ stopifnot(length(files) > 0)
 
 # Extract the interesting bits
 extract <- function(f){
-  json <- fromJSON(file = f)
-  # with (json$Data, mean(open, high, low))
-
-  sapply(json$Data, function(x) {
-  mean(c(x$open, x$high, x$low))
+    json <- fromJSON(file = f)
+    sapply(json$Data, function(x) {
+    mean(c(x$open, x$high, x$low))
   })
 }
 
 # Extract all series
 prices <-as.data.frame(sapply(files, extract))
 
-# with(prices, plot())
-
-# Only process a subset
-prices <- prices[c("tmp/BTC.json", "tmp/ETH.json", "tmp/XRP.json")]
-
 # Add a random series
 random_prices <- cumsum(rnorm(nrow(prices)))
 prices <- cbind(random_prices, prices)
 # with(mtcars, boxplot(disp, mpg))
 ```
-
 
 # Price analysis
 ```{r, analysis}
@@ -54,49 +46,52 @@ library("pracma")
 # Plot prices and ilnear regression
 linear_regression <- function(name) {
 
-  # Get prices for token  
+  # Get prices for token
   y <- unlist(prices[name])
   x <- 1:length(y)
 
-  # Fit line
-  relation <- lm(y ~ x)
+  # Calculate standard deviation
+  # Report if latest value significantly exceeds mean
+  standard_deviation <- sd(y)
 
-  # Create plot titles
-  main_title <- sub("tmp/", "", sub(".json", "", name))
-  sub_title <- paste("sd", sd(y))
+  if (y[length(y)] > mean(y) + (2 * standard_deviation)) {
 
-  # Plot with calculated line
-  plot(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes", ylab = "USD")
-  
-  # Add linear regression
-  abline(relation, col = "orange")
-  grid(10, 10)
+    # Create plot title
+    main_title <- sub("tmp/", "", sub(".json", "", name))
+    sub_title <- paste("sd", standard_deviation)
 
-  # Plot peaks
-  peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
-  points(peaks[,2], peaks[,1], pch=4, col="red")
+    # Fit line
+    relation <- lm(y ~ x)
 
-  # Density
-  # d <-density(y)
-  # plot(d, main = paste("density", main_title))
+    # Plot with calculated line
+    plot(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes",
+      ylab = "USD")
 
-  # Histogram of diffs
-  h <- diff(y)
-  hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std dev", sd(h)))
+    # Add linear regression
+    abline(relation, col = "orange")
+    grid(10, 10)
+
+    # Plot peaks
+    peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
+    points(peaks[,2], peaks[,1], pch=4, col="red")
+
+    # Histogram of diffs
+    h <- diff(y)
+    hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std
+      dev", standard_deviation))
+  }
 }
 
 plots <- sapply(colnames(prices), linear_regression)
 ```
 
-# Correlation
+# Normalised
 ```{r, correlation}
-pairs(prices)
-
 normalise <- function(y) {
-  low <- min(y)
-  high <- max(y)
-  y <- y - low
-  y <- y / (high - low)
+ low <- min(y)
+ high <- max(y)
+ y <- y - low
+ y <- y / (high - low)
 }
 
 normalised <- sapply(prices, normalise)
