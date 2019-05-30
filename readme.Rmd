@@ -74,8 +74,8 @@ linear_regression <- function(name) {
   points(peaks[,2], peaks[,1], pch=4, col="red")
 
   # Density
-  d <-density(y)
-  plot(d, main = paste("density", main_title))
+  # d <-density(y)
+  # plot(d, main = paste("density", main_title))
 
   # Histogram of diffs
   h <- diff(y)
