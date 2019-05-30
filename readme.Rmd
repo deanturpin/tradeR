@@ -3,6 +3,9 @@ title: tradeR
 date: "Last update: `r Sys.time()` in `r Sys.timezone()`"
 output:
   html_document:
+    df_print: kable
+    toc: true
+    toc_float: true
     code_folding: "hide"
     theme: united
     highlight: zenburn
