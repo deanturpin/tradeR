@@ -60,8 +60,7 @@ linear_regression <- function(name) {
 
   # Create plot titles
   main_title <- sub("tmp/", "", sub(".json", "", name))
-  sub_title <- paste("sd/var/cov/cor min/mean/max\n", sd(y), var(y), cov(x, y), cor(x, y),
-                     "\n", min(y), mean(y), max(y))
+  sub_title <- paste("sd", sd(y))
 
   # Plot with calculated line
   plot(y, type = "h", main = main_title, sub = sub_title, xlab = "", ylab = "USD")
