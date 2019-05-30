@@ -55,10 +55,12 @@ linear_regression <- function(name) {
   # Create plot title
   main_title <- sub("tmp/", "", sub(".json", "", name))
 
-  if (tail(y, 1) > mean(y) + (1 * standard_deviation)) {
-    main_title <- paste(main_title, "ALERT!")
+  if (tail(y, 1) > mean(y) + standard_deviation) {
+    main_title <- paste(main_title, " - UP!")
+  } else if (tail(y, 1) < mean(y) - standard_deviation) {
+    main_title <- paste(main_title, " - DOWN!")
   }
-
+  
   sub_title <- paste("sd", standard_deviation)
 
   # Fit line
