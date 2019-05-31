@@ -21,3 +21,6 @@ tmp/%.json:
 
 render: tmp prices
 	./rendeR
+
+# web server
+# sudo python3 -m http.server 
