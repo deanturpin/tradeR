@@ -20,10 +20,9 @@ stopifnot(length(files) > 0)
 
 # Extract the interesting bits
 extract <- function(f){
-    json <- fromJSON(file = f)
-    sapply(json$Data, function(x) {
-    mean(c(x$open, x$high, x$low))
-  })
+      json <- fromJSON(file = f)
+      if (length(json))
+        sapply(json$Data, function(x) { mean(c(x$open, x$high, x$low)) })
 }
 
 # Extract all series
@@ -39,7 +38,7 @@ prices <- cbind(random_prices, prices)
 If latest price is one standard deviation greater than the mean.
 
 ```{r, analysis}
-library("pracma")
+# Reversion/regression to the mean
 
 # Plot prices and ilnear regression
 linear_regression <- function(name) {
@@ -60,7 +59,7 @@ linear_regression <- function(name) {
   } else if (tail(y, 1) < mean(y) - standard_deviation) {
     main_title <- paste(main_title, " - DOWN!")
   }
-  
+
   sub_title <- paste("sd", standard_deviation)
 
   # Fit line
@@ -73,10 +72,6 @@ linear_regression <- function(name) {
   # Add linear regression
   abline(relation, col = "orange")
   grid(10, 10)
-
-  # Plot peaks
-  peaks <- findpeaks(y, npeaks = 4, threshold=4, sortstr=TRUE)
-  points(peaks[,2], peaks[,1], pch=4, col="red")
 
   # Histogram of diffs
   h <- diff(y)
