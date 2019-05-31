@@ -10,6 +10,7 @@ output:
     theme: united
     highlight: zenburn
 ---
+
 ```{r, read and extract}
 # Read JSON files and extract the prices
 library("rjson")
@@ -30,12 +31,13 @@ prices <-as.data.frame(sapply(files, extract))
 
 # Add a random series
 random_prices <- cumsum(rnorm(nrow(prices)))
-prices <- cbind(random_prices, prices)
-# with(mtcars, boxplot(disp, mpg))
+random_prices <- random_prices + 8000
+prices <- cbind(TURBO = random_prices, prices)
 ```
 
-# Price alert!
-If latest price is one standard deviation greater than the mean.
+# Analysis
+Advice is given if the latest price is one standard deviation either side of
+the mean.
 
 ```{r, analysis}
 # Reversion/regression to the mean
@@ -45,14 +47,13 @@ linear_regression <- function(name) {
 
   # Get prices for token
   y <- unlist(prices[name])
-  x <- 1:length(y)
-
-  # Calculate standard deviation
-  # Report if latest value significantly exceeds mean
-  standard_deviation <- sd(y)
+  x <- seq(length(y))
 
   # Trading advice
+  # Report if latest value exceeds mean by standard deviation
+  standard_deviation <- sd(y)
   advice <- "stable"
+
   if (tail(y, 1) > mean(y) + standard_deviation)
     advice <- "UP!"
   else if (tail(y, 1) < mean(y) - standard_deviation)
@@ -75,9 +76,8 @@ linear_regression <- function(name) {
   grid(10, 10)
 
   # Histogram of diffs
-  h <- diff(y)
-  hist(h, breaks=500, main = paste("hist", main_title), sub = paste("std
-    dev", standard_deviation))
+  hist(diff(y), breaks=500, main = main_title,
+    sub = paste("std dev", standard_deviation))
 }
 
 plots <- sapply(colnames(prices), linear_regression)
