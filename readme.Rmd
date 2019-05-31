@@ -51,15 +51,16 @@ linear_regression <- function(name) {
   # Report if latest value significantly exceeds mean
   standard_deviation <- sd(y)
 
-  # Create plot title
+  # Trading advice
+  advice <- "stable"
+  if (tail(y, 1) > mean(y) + standard_deviation)
+    advice <- "UP!"
+  else if (tail(y, 1) < mean(y) - standard_deviation)
+    advice <- "DOWN!"
+
+  # Create plot titles
   main_title <- sub("tmp/", "", sub(".json", "", name))
-
-  if (tail(y, 1) > mean(y) + standard_deviation) {
-    main_title <- paste(main_title, " - UP!")
-  } else if (tail(y, 1) < mean(y) - standard_deviation) {
-    main_title <- paste(main_title, " - DOWN!")
-  }
-
+  main_title <- paste(main_title, advice)
   sub_title <- paste("sd", standard_deviation)
 
   # Fit line
