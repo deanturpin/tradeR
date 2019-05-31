@@ -6,3 +6,9 @@ See [recent analysis](https://deanturpin.github.io/tradeR/).
   prices
 - Price data fetched in parallel using ```make```
 - Analysis in R/Rmarkdown
+- Served by nginx
+
+# Web server
+```bash
+git clone --depth=1 https://github.com/deanturpin/tradeR /usr/share/nginx/html/tradeR
+```
