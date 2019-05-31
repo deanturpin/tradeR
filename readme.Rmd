@@ -40,8 +40,6 @@ Advice is given if the latest price is one standard deviation either side of
 the mean.
 
 ```{r, analysis}
-# Reversion/regression to the mean
-
 # Plot prices and ilnear regression
 linear_regression <- function(name) {
 
@@ -60,8 +58,8 @@ linear_regression <- function(name) {
     advice <- "DOWN!"
 
   # Create plot titles
-  main_title <- sub("tmp/", "", sub(".json", "", name))
-  main_title <- paste(main_title, advice)
+  token <- sub("tmp/", "", sub(".json", "", name))
+  main_title <- paste(token, advice)
   sub_title <- paste("sd", standard_deviation)
 
   # Fit line
@@ -76,7 +74,7 @@ linear_regression <- function(name) {
   grid(10, 10)
 
   # Histogram of diffs
-  hist(diff(y), breaks=500, main = main_title,
+  hist(unlist(y), breaks=500, main = paste("plateaux", token),
     sub = paste("std dev", standard_deviation))
 }
 
