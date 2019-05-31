@@ -66,7 +66,7 @@ linear_regression <- function(name) {
   relation <- lm(y ~ x)
 
   # Plot with calculated line
-  plot(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes",
+  scatter.smooth(y, type = "l", main = main_title, sub = sub_title, xlab = "minutes",
     ylab = "USD")
 
   # Add linear regression
