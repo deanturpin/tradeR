@@ -33,7 +33,6 @@ random_prices <- random_prices + 8000
 prices <- cbind(TURBO = random_prices, prices)
 ```
 
-# Analysis
 ```{r, analysis}
 buy_now <- function(s) {
   tail(s, 1) < (mean(s) - (2 * sd(s)))
