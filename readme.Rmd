@@ -80,16 +80,14 @@ linear_regression <- function(name) {
   grid(10, 10)
 
   trade_window_size <- 80
-  r <- c(); for (i in seq(length(y) - trade_window_size)) {
+  r <- c(); for (i in seq(length(y)))
+    r <- c(r, NA)
+
+  for (i in seq(length(y) - trade_window_size)) {
     trade_window <- y[i:(i+trade_window_size)]
     if (buy_now(trade_window))
-      r <- c(r, y[i])
-    else
-      r <- c(r, NA)
+      r[i + trade_window_size] = y[i + trade_window_size]
   }
-
-  for (i in seq(trade_window_size))
-    r <- c(r, NA)
 
   points(r, col = "red")
 
