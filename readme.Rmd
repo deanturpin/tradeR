@@ -40,6 +40,11 @@ Advice is given if the latest price is one standard deviation either side of
 the mean.
 
 ```{r, analysis}
+
+buy_now <- function(s) {
+  tail(s, 1) < (mean(s) - (2 * sd(s)))
+}
+
 # Plot prices and ilnear regression
 linear_regression <- function(name) {
 
@@ -74,6 +79,20 @@ linear_regression <- function(name) {
   abline(relation, col = "orange")
   grid(10, 10)
 
+  trade_window_size <- 40
+  r <- c(); for (i in seq(length(y) - trade_window_size)) {
+    trade_window <- y[i:(i+trade_window_size)]
+    if (buy_now(trade_window))
+      r <- c(r, y[i])
+    else
+      r <- c(r, NA)
+  }
+
+  for (i in seq(trade_window_size))
+    r <- c(r, NA)
+
+  points(r, pch = 4, col = "red")
+
   # Histogram of diffs
   hist(unlist(y), breaks=500, main = paste("plateaux", token),
     sub = paste("std dev", standard_deviation))
@@ -81,6 +100,7 @@ linear_regression <- function(name) {
 
 plots <- sapply(colnames(prices), linear_regression)
 ```
+
 
 ```{bash, revision info}
 git log --oneline -n 1
