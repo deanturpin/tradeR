@@ -71,7 +71,7 @@ linear_regression <- function(name) {
   relation <- lm(y ~ x)
 
   # Plot with calculated line
-  scatter.smooth(y, type = "l", main = main_title, sub = sub_title,
+  scatter.smooth(y, type = "l", col = "grey", main = main_title, sub = sub_title,
     xlab = "minutes", ylab = "USD",
     lpars = list(col = "green", lwd = 3, lty = 3))
 
@@ -79,7 +79,7 @@ linear_regression <- function(name) {
   abline(relation, col = "orange")
   grid(10, 10)
 
-  trade_window_size <- 40
+  trade_window_size <- 80
   r <- c(); for (i in seq(length(y) - trade_window_size)) {
     trade_window <- y[i:(i+trade_window_size)]
     if (buy_now(trade_window))
@@ -91,11 +91,11 @@ linear_regression <- function(name) {
   for (i in seq(trade_window_size))
     r <- c(r, NA)
 
-  points(r, pch = 4, col = "red")
+  points(r, col = "red")
 
   # Histogram of diffs
-  hist(unlist(y), breaks=500, main = paste("plateaux", token),
-    sub = paste("std dev", standard_deviation))
+  # hist(unlist(y), breaks=500, main = paste("plateaux", token),
+  #   sub = paste("std dev", standard_deviation))
 }
 
 plots <- sapply(colnames(prices), linear_regression)
