@@ -52,16 +52,10 @@ linear_regression <- function(name) {
   # Trading advice
   # Report if latest value exceeds mean by standard deviation
   standard_deviation <- sd(y)
-  advice <- "stable"
-
-  if (tail(y, 1) > mean(y) + standard_deviation)
-    advice <- "UP!"
-  else if (tail(y, 1) < mean(y) - standard_deviation)
-    advice <- "DOWN!"
 
   # Create plot titles
   token <- sub("tmp/", "", sub(".json", "", name))
-  main_title <- paste(token, advice)
+  main_title <- token
   sub_title <- paste("sd", standard_deviation)
 
   # Fit line
@@ -76,9 +70,9 @@ linear_regression <- function(name) {
   abline(relation, col = "orange")
   grid(10, 10)
 
+  # Initialise trade report
   trade_window_size <- 80
-  r <- c(); for (i in seq(length(y)))
-    r <- c(r, NA)
+  r <- rep(NA, each = length(y))
 
   for (i in seq(length(y) - trade_window_size)) {
     trade_window <- y[i:(i+trade_window_size)]
@@ -87,10 +81,6 @@ linear_regression <- function(name) {
   }
 
   points(r, col = "red")
-
-  # Histogram of diffs
-  # hist(unlist(y), breaks=500, main = paste("plateaux", token),
-  #   sub = paste("std dev", standard_deviation))
 }
 
 plots <- sapply(colnames(prices), linear_regression)
