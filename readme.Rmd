@@ -9,6 +9,10 @@ output:
     highlight: zenburn
 ---
 
+- Market data via the [CryptoCompare API](https://min-api.cryptocompare.com/)
+- Prices fetched in parallel using ```make```
+- Analysis in Rmarkdown
+
 ```{r, read and extract}
 # Read JSON files and extract the prices
 library("rjson")
