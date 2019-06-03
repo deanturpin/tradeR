@@ -9,11 +9,11 @@ prices: tmp
 tmp:
 	mkdir -p $@
 
-url = "https://min-api.cryptocompare.com/data/histominute"
+url = "https://min-api.cryptocompare.com/data/histohour?extraParams=turpin.dev"
 
 # Fetch prices for a token
 tmp/%.json:
-	curl --silent "$(url)?fsym=$(basename $(notdir $@))&tsym=USD&limit=1999" > $@
+	curl --silent "$(url)&fsym=$(basename $(notdir $@))&tsym=USD&limit=1999" > $@
 
 render: tmp prices
 	./rendeR

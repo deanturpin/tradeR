@@ -65,7 +65,7 @@ linear_regression <- function(name) {
 
   # Plot with calculated line
   scatter.smooth(y, type = "l", col = "grey", main = main_title, sub = sub_title,
-    xlab = "minutes", ylab = "USD",
+    xlab = "hours", ylab = "USD",
     lpars = list(col = "green", lwd = 3, lty = 3))
 
   # Add linear regression
