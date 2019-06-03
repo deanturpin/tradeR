@@ -23,9 +23,8 @@ stopifnot(length(files) > 0)
 
 # Extract the interesting bits
 extract <- function(f){
-      json <- fromJSON(file = f)
-      if (length(json))
-        sapply(json$Data, function(x) { mean(c(x$open, x$high, x$low)) })
+  json <- fromJSON(file = f)
+  sapply(json$Data, function(x) { mean(c(x$open, x$high, x$low)) })
 }
 
 # Extract all series
@@ -42,7 +41,7 @@ buy_now <- function(s) {
   tail(s, 1) < (mean(s) - (2 * sd(s)))
 }
 
-# Plot prices and ilnear regression
+# Plot prices and linear regression
 linear_regression <- function(name) {
 
   # Get prices for token
@@ -63,10 +62,9 @@ linear_regression <- function(name) {
 
   # Plot with calculated line
   scatter.smooth(y, type = "l", col = "grey", main = main_title, sub = sub_title,
-    xlab = "hours", ylab = "USD",
-    lpars = list(col = "green", lwd = 3, lty = 3))
+    xlab = "hours", ylab = "USD", lpars = list(col = "green"))
 
-  # Add linear regression
+  # Add linear regression and grid
   abline(relation, col = "orange")
   grid(10, 10)
 
