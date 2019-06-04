@@ -48,23 +48,17 @@ linear_regression <- function(name) {
   y <- unlist(prices[name])
   x <- seq(length(y))
 
-  # Trading advice
-  # Report if latest value exceeds mean by standard deviation
-  standard_deviation <- sd(y)
-
   # Create plot titles
   token <- sub("tmp/", "", sub(".json", "", name))
   main_title <- token
-  sub_title <- paste("sd", standard_deviation)
-
-  # Fit line
-  relation <- lm(y ~ x)
+  sub_title <- paste("sd", sd(y))
 
   # Plot with calculated line
   scatter.smooth(y, type = "l", col = "grey", main = main_title, sub = sub_title,
-    xlab = "hours", ylab = "USD", lpars = list(col = "green"))
+    xlab = "minutes", ylab = "USD", lpars = list(col = "green"))
 
   # Add linear regression and grid
+  relation <- lm(y ~ x)
   abline(relation, col = "orange")
   grid(10, 10)
 
