@@ -54,8 +54,7 @@ linear_regression <- function(name) {
   sub_title <- paste("sd", sd(y))
 
   # Plot with calculated line
-  par(bg = "darkslategrey")
-  scatter.smooth(y, type = "l", col = "white", main = main_title, sub = sub_title,
+  scatter.smooth(y, type = "l", col = "black", main = main_title, sub = sub_title,
     xlab = "minutes", ylab = "USD", lpars = list(col = "green"))
 
   # Add linear regression and grid
