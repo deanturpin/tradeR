@@ -1,5 +1,4 @@
 ---
-title: tradeR
 output:
   html_document:
     df_print: kable
@@ -8,7 +7,7 @@ output:
     highlight: zenburn
 ---
 
-```{r, read and extract}
+```{r, read extract analyse}
 # Read JSON files and extract the prices
 library("rjson")
 
@@ -29,9 +28,8 @@ prices <-as.data.frame(sapply(files, extract))
 random_prices <- cumsum(rnorm(nrow(prices)))
 random_prices <- random_prices + 8000
 prices <- cbind(TURBO = random_prices, prices)
-```
 
-```{r, analysis}
+# Buy strategy
 buy_now <- function(s) {
   tail(s, 1) < (mean(s) - (2 * sd(s)))
 }
