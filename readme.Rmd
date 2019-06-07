@@ -7,6 +7,8 @@ output:
     highlight: zenburn
 ---
 
+---
+
 ```{r, read extract analyse}
 # Read JSON files and extract the prices
 library("rjson")
