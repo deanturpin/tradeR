@@ -8,11 +8,6 @@ output:
     highlight: zenburn
 ---
 
-```{bash, revision info}
-date
-git log --oneline -n 1
-```
-
 ```{r, read and extract}
 # Read JSON files and extract the prices
 library("rjson")
@@ -76,4 +71,9 @@ linear_regression <- function(name) {
 }
 
 plots <- sapply(colnames(prices), linear_regression)
+```
+
+```{bash, revision info}
+date
+git log --oneline -n 1
 ```
