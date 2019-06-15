@@ -18,3 +18,6 @@ tmp/%.json:
 
 render: tmp prices
 	./rendeR
+
+clean:
+	rm -rf tmp
