@@ -9,7 +9,7 @@ prices: tmp
 tmp:
 	mkdir -p $@
 
-period = minute
+period = hour
 url = "https://min-api.cryptocompare.com/data/histo$(period)?extraParams=turpin.dev"
 
 # Fetch prices for a token

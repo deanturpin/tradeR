@@ -36,6 +36,7 @@ buy_now <- function(s) {
   tail(s, 1) < (mean(s) - (2 * sd(s)))
 }
 
+
 # Plot prices and linear regression
 linear_regression <- function(name) {
 
@@ -49,13 +50,15 @@ linear_regression <- function(name) {
   sub_title <- paste("sd", sd(y))
 
   # Plot with calculated line
-  scatter.smooth(y, type = "l", col = "black", main = main_title, sub = sub_title,
+  spot <- y[length(y)]
+  projection <- seq(spot, spot * 1.05, ((spot * 1.05) - spot) / (7 * length(y) / 80))
+  scatter.smooth(c(y, projection), type = "l", col = "black", main = main_title, sub = sub_title,
     xlab = "minutes", ylab = "USD", lpars = list(col = "green"))
 
   # Add linear regression and grid
   relation <- lm(y ~ x)
   abline(relation, col = "orange")
-  grid(10, 10)
+  # grid(10, 10)
 
   # Initialise trade report
   trade_window_size <- 80
@@ -71,6 +74,8 @@ linear_regression <- function(name) {
 }
 
 plots <- sapply(colnames(prices), linear_regression)
+
+
 ```
 
 ```{bash, revision info}
