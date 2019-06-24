@@ -36,7 +36,6 @@ buy_now <- function(s) {
   tail(s, 1) < (mean(s) - (2 * sd(s)))
 }
 
-
 # Plot prices and linear regression
 linear_regression <- function(name) {
 
@@ -54,7 +53,7 @@ linear_regression <- function(name) {
   yield <- 1.02
   projection <- seq(spot, spot * yield, ((spot * yield) - spot) / length(y))
   plot(c(y, projection), type = "l", col = "black", main = main_title, sub = sub_title,
-    xlab = "minutes", ylab = "USD", lpars = list(col = "green"))
+    xlab = "minutes", ylab = "USD")
 
   # Add linear regression and grid
   relation <- lm(y ~ x)
