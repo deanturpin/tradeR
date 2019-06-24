@@ -1,6 +1,6 @@
 all: prices render
 
-tokens = tmp/ETH.json tmp/REP.json tmp/LTC.json tmp/BTC.json \
+tokens = tmp/ETH.json tmp/BERRY.json tmp/LTC.json tmp/BTC.json \
 	tmp/GBP.json tmp/EUR.json tmp/CNY.json tmp/NOK.json
 
 prices: tmp
