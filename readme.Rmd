@@ -51,8 +51,9 @@ linear_regression <- function(name) {
 
   # Plot with calculated line
   spot <- y[length(y)]
-  projection <- seq(spot, spot * 1.05, ((spot * 1.05) - spot) / (7 * length(y) / 80))
-  scatter.smooth(c(y, projection), type = "l", col = "black", main = main_title, sub = sub_title,
+  yield <- 1.02
+  projection <- seq(spot, spot * yield, ((spot * yield) - spot) / length(y))
+  plot(c(y, projection), type = "l", col = "black", main = main_title, sub = sub_title,
     xlab = "minutes", ylab = "USD", lpars = list(col = "green"))
 
   # Add linear regression and grid
