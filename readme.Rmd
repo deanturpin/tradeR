@@ -20,11 +20,10 @@ stopifnot(length(files) > 0)
 # Extract the interesting bits
 extract <- function(f){
   json <- fromJSON(file = f)
-  sapply(json$Data, function(x) { mean(c(x$open, x$high, x$low)) })
+  sapply(json$Data, function(x) { mean(c(x$open, x$high, x$low)) })[seq(1999)]
 }
 
-# Extract all series
-prices <-as.data.frame(sapply(files, extract))
+prices <- as.data.frame(sapply(files, extract))
 
 # Add a random series
 random_prices <- cumsum(rnorm(nrow(prices)))
