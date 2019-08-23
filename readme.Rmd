@@ -52,7 +52,7 @@ linear_regression <- function(name) {
   yield <- 1.02
   projection <- seq(spot, spot * yield, ((spot * yield) - spot) / length(y))
   plot(c(y, projection), type = "l", col = "black", main = main_title, sub = sub_title,
-    xlab = "minutes", ylab = "USD")
+    xlab = "minutes", ylab = "EUR")
 
   # Add linear regression and grid
   relation <- lm(y ~ x)
