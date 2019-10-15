@@ -1,0 +1,83 @@
+---
+output:
+  html_document:
+    df_print: kable
+    code_folding: "hide"
+    theme: united
+    highlight: zenburn
+---
+
+---
+
+```{r, read extract analyse}
+# Read JSON files and extract the prices
+library("rjson")
+
+# Read any files on disk
+files <- list.files(path = "tmp", pattern = "*.json", full.names = TRUE)
+stopifnot(length(files) > 0)
+
+# Extract the interesting bits
+extract <- function(f){
+  json <- fromJSON(file = f)
+  sapply(json$Data, function(x) { mean(c(x$open, x$high, x$low)) })[seq(1999)]
+}
+
+prices <- as.data.frame(sapply(files, extract))
+
+# Add a random series
+random_prices <- cumsum(rnorm(nrow(prices)))
+random_prices <- random_prices + 8000
+prices <- cbind(TURBO = random_prices, prices)
+
+# Buy strategy
+buy_now <- function(s) {
+  tail(s, 1) < (mean(s) - (2 * sd(s)))
+}
+
+# Plot prices and linear regression
+linear_regression <- function(name) {
+
+  # Get prices for token
+  y <- unlist(prices[name])
+  x <- seq(length(y))
+
+  # Create plot titles
+  token <- sub("tmp/", "", sub(".json", "", name))
+  main_title <- token
+  sub_title <- paste("sd", sd(y))
+
+  # Plot with calculated line
+  spot <- y[length(y)]
+  yield <- 1.02
+  projection <- seq(spot, spot * yield, ((spot * yield) - spot) / length(y))
+  plot(c(y, projection), type = "l", col = "black", main = main_title, sub = sub_title,
+    xlab = "minutes", ylab = "EUR")
+
+  # Add linear regression and grid
+  relation <- lm(y ~ x)
+  abline(relation, col = "orange")
+  # grid(10, 10)
+
+  # Initialise trade report
+  trade_window_size <- 80
+  r <- rep(NA, each = length(y))
+
+  for (i in seq(length(y) - trade_window_size)) {
+    trade_window <- y[i:(i+trade_window_size)]
+    if (buy_now(trade_window))
+      r[i + trade_window_size] = y[i + trade_window_size]
+  }
+
+  points(r, col = "red")
+}
+
+plots <- sapply(colnames(prices), linear_regression)
+
+
+```
+
+```{bash, revision info}
+date
+git log --oneline -n 1
+```

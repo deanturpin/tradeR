@@ -1,0 +1,11 @@
+image: r-base
+
+pages:
+  script:
+    - R -e 'install.packages(c("rmarkdown", "csv"))'
+    - make
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
